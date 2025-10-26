@@ -1,0 +1,45 @@
+# Node.js dependencies
+/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+log*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+tmp/
+temp/
+.cache/
+dist/
+build/
+
+# Uploaded files (optional: comment out if you want to include uploads)
+uploads/
+public/uploads/
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+
+# Optional lock files
+package-lock.json
+yarn.lock
