@@ -1,35 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Properties | FusionStruct</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="components/navbar.css">
-<link rel="stylesheet" href="components/footer.css">
-<link rel="stylesheet" href="assets/css/property.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties | FusionStruct</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="components/navbar.css">
+    <link rel="stylesheet" href="components/footer.css">
+    <link rel="stylesheet" href="assets/css/property.css">
 </head>
 <body>
 
-<div id="navbar"></div>
-<main>
+    <div id="navbar"></div>
+    
+    <main>
+        <!-- Property Header -->
+        <section class="property-header bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl font-bold mb-4">Our Properties</h1>
+                <p class="text-xl opacity-90">Discover premium real estate opportunities with FusionStruct Engineering</p>
+            </div>
+        </section>
 
-<section class="px-6 py-10 max-w-7xl mx-auto">
-  <h1 class="text-3xl font-bold mb-6">Our Properties</h1>
-  <div id="property-container" class="grid md:grid-cols-3 gap-6"></div>
-</section>
-</main>
+        <!-- Properties Container -->
+        <section class="px-6 py-12 max-w-7xl mx-auto">
+            <div id="property-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Properties will load here -->
+            </div>
+        </section>
+    </main>
 
-<div id="footer"></div>
+    <div id="footer"></div>
 
-<script type="module">
-  import { initComponents } from './assets/js/components.js';
-  initComponents();
+    <script type="module">
+        import './assets/js/main.js';
+        import './assets/js/property.js';
+        // Load navbar and footer
+        async function loadHTML(path, elementId) {
+            const html = await fetch(path).then(res => res.text());
+            document.getElementById(elementId).innerHTML = html;
+        }
 
-  // Your property-specific JS
-  import './assets/js/property.js';
- 
-</script>
+        async function initNavbar() {
+            await loadHTML("components/navbar.html", "navbar");
+            const menuToggle = document.getElementById("menu-toggle");
+            const navLinks = document.getElementById("nav-links");
+            menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
+        }
+
+        async function initFooter() {
+            await loadHTML("components/footer.html", "footer");
+        }
+
+        // Initialize navbar and footer
+        initNavbar();
+        initFooter();
+    </script>
+
 </body>
 </html>
