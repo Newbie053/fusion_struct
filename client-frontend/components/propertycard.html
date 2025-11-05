@@ -1,19 +1,12 @@
-<div class="property-card bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
-    <img class="property-image w-full h-48 object-cover" src="assets/images/placeholder.jpg" alt="Property Image">
-    <div class="p-4">
-        <div class="flex justify-between items-start mb-2">
-            <h3 class="property-title text-lg font-semibold text-gray-800">Dummy Property Title</h3>
-            <span class="property-date text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">DUMMY_DATE</span>
-        </div>
-        <p class="property-description text-gray-600 mb-3 text-sm">This is a sample description for the property.</p>
-        <div class="flex justify-between items-center">
-            <p class="text-sm">
-                <strong class="text-gray-700">Contact:</strong> 
-                <span class="property-phone text-gray-800 ml-1">DUMMY_PHONE</span>
-            </p>
-            <a href="property-details.html?id=DUMMY_ID" class="read-more text-blue-600 hover:text-blue-800 text-sm font-medium">
-                View Details →
-            </a>
-        </div>
+<div class="property-card bg-white rounded-xl shadow-lg overflow-hidden">
+    <img src="assets/images/placeholder.jpg" alt="Property Image" class="w-full h-60 object-cover" />
+    <div class="p-6">
+        <span class="text-gray-400 text-sm" data-content="date">DUMMY_DATE</span>
+        <h3 class="text-xl font-bold mt-2" data-content="title">Dummy Property Title</h3>
+        <p class="text-gray-600 mt-2" data-content="description">
+            This is a sample description for the property.
+        </p>
+        <p class="text-gray-600 mt-1 font-semibold">Contact: DUMMY_PHONE</p>
+        <a href="#" class="read-more-btn inline-block mt-4 text-blue-600 hover:text-blue-800 font-semibold">View Details</a>
     </div>
 </div>

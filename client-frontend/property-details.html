@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details | FusionStruct</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="components/navbar.css">
+    <link rel="stylesheet" href="components/footer.css">
+    <link rel="stylesheet" href="assets/css/property-details.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <div id="navbar"></div>
+
+    <main class="max-w-5xl mx-auto py-12 px-6">
+        <div id="property-details" class="bg-white shadow-lg rounded-2xl overflow-hidden">
+            <div class="p-10 text-center text-gray-500">Loading property...</div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script type="module">
+        import './assets/js/property-details.js';
+
+        async function loadHTML(path, elementId) {
+            const html = await fetch(path).then(res => res.text());
+            document.getElementById(elementId).innerHTML = html;
+        }
+
+        await loadHTML("components/navbar.html", "navbar");
+        await loadHTML("components/footer.html", "footer");
+    </script>
+</body>
+</html>

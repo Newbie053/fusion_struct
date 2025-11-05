@@ -126,4 +126,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             return cardHtml;
         })
         .join("");
+            // ----- Add Read More functionality AFTER rendering -----
+    const readMoreBtns = document.querySelectorAll(".read-more-btn");
+    readMoreBtns.forEach((btn, idx) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const selectedProperty = properties[idx];
+            if (!selectedProperty) return alert("Property not found");
+            sessionStorage.setItem("selectedProperty", JSON.stringify(selectedProperty));
+            window.location.href = "property-details.html";
+        });
+    });
 });
+
