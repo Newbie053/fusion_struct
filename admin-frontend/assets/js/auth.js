@@ -24,6 +24,18 @@ function logout() {
   window.location.href = "login.html";
 }
 
+// Open/Close modal
+function openChangePasswordModal() {
+  document.getElementById("changePasswordModal").classList.remove("hidden");
+}
+
+function closeChangePasswordModal() {
+  document.getElementById("changePasswordModal").classList.add("hidden");
+  document.getElementById("changePasswordStatus").textContent = "";
+  document.getElementById("newPassword").value = "";
+  document.getElementById("confirmPassword").value = "";
+}
+
 // Handle login
 async function handleLogin(e) {
   e.preventDefault();
@@ -60,5 +72,51 @@ async function handleLogin(e) {
     }
   } catch (err) {
     Swal.fire("Error", "Server not reachable", "error");
+  }
+}
+
+// Submit new password
+async function submitChangePassword() {
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const status = document.getElementById("changePasswordStatus");
+
+  if (!newPassword || !confirmPassword) {
+    status.textContent = "Please fill all fields";
+    status.style.color = "red";
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    status.textContent = "Passwords do not match";
+    status.style.color = "red";
+    return;
+  }
+
+  try {
+    const token = getToken(); // JWT stored in localStorage
+    const res = await fetch(`${BASE_URL}/auth/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ newPassword, confirmPassword })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      status.textContent = data.message;
+      status.style.color = "green";
+      setTimeout(closeChangePasswordModal, 1500);
+    } else {
+      status.textContent = data.message || "Failed to update password";
+      status.style.color = "red";
+    }
+  } catch (err) {
+    console.error(err);
+    status.textContent = "Error updating password";
+    status.style.color = "red";
   }
 }

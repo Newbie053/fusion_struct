@@ -4,4 +4,7 @@ const { login } = require('../controllers/authController');
 
 router.post('/login', login);
 
+// Change password
+router.post("/change-password", changePassword);
+
 module.exports = router;
