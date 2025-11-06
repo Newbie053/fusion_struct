@@ -4,36 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs | FusionStruct</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="components/navbar.css">
-  <link rel="stylesheet" href="components/footer.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="components/navbar.css" />
+<link rel="stylesheet" href="components/footer.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+  <!-- <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/blog.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/main.css"> -->
   <link rel="stylesheet" href="assets/css/blog.css">
 </head>
 <body>
 
+  <!-- Navbar -->
   <div id="navbar"></div>
 
   <main>
-    <section class="blog-header">
-      <h1>Our Blogs</h1>
-      <p>Explore latest insights and updates from FusionStruct Engineering</p>
-    </section>
 
-    <section id="blog-container"></section>
-  </main>
+  <!-- Header -->
+  <section class="blog-header">
+    <h1>Our Blogs</h1>
+    <p>Explore latest insights and updates from FusionStruct Engineering</p>
+  </section>
 
+  <!-- Blog Cards Container -->
+  <section id="blog-container">
+    <!-- Blogs will render here -->
+  </section>
+  <link rel="stylesheet" href="components/cards.css">
+</main>
+  <!-- Footer -->
   <div id="footer"></div>
 
-  <script type="module">
-    import './assets/js/blog.js';
+  <!-- JS Modules -->
+<script type="module">
+  //import { initComponents } from './assets/js/components.js';
+  import './assets/js/main.js';
+  import './assets/js/blog.js';
 
-    async function loadHTML(path, elementId) {
-      const html = await fetch(path).then(res => res.text());
-      document.getElementById(elementId).innerHTML = html;
-    }
+  // Initialize Navbar + Footer + Dropdown
+async function loadHTML(path, elementId) {
+  const html = await fetch(path).then(res => res.text());
+  document.getElementById(elementId).innerHTML = html;
+}
 
-    await loadHTML("components/navbar.html", "navbar");
-    await loadHTML("components/footer.html", "footer");
-  </script>
+async function initNavbar() {
+  await loadHTML("components/navbar.html", "navbar");
+
+  // Dropdown toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+  menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
+}
+
+async function initFooter() {
+  await loadHTML("components/footer.html", "footer");
+}
+
+// Initialize
+initNavbar();
+initFooter();
+
+</script>
+
+
 </body>
 </html>

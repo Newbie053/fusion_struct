@@ -1,11 +1,21 @@
 const API_BASE = 'https://backend.fusionstructengineering.com';
 
-// Helper to safely get blog image URL
+// Helper to safely get blog image URL - IMPROVED VERSION
 function getBlogImage(blog) {
     if (Array.isArray(blog.image) && blog.image.length > 0) {
-        const firstImage = blog.image[0];
-        return firstImage.startsWith("http") ? firstImage : `${API_BASE}${firstImage}`;
+        // Filter only actual image files
+        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+        
+        for (let imagePath of blog.image) {
+            const ext = imagePath.split('.').pop().toLowerCase();
+            if (imageExtensions.includes(ext)) {
+                return imagePath.startsWith("http")
+                    ? imagePath
+                    : `${API_BASE}${imagePath}`;
+            }
+        }
     }
+    // fallback - return placeholder if no valid image found
     return 'assets/images/placeholder.jpg';
 }
 
@@ -28,6 +38,7 @@ async function fetchBlogs() {
 // Dummy fallback blogs
 const dummyBlogs = [
     {
+        id: 1,
         title: "Designing Modern Infrastructure",
         description: "Learn how FusionStruct optimizes real estate structures for efficiency and sustainability...",
         content: "<p>Full content for Designing Modern Infrastructure...</p>",
@@ -35,6 +46,7 @@ const dummyBlogs = [
         created_at: new Date().toISOString() 
     },
     {
+        id: 2,
         title: "Smart Urban Development",
         description: "The future of city planning is intelligent. Smart urban development uses IoT, AI, and sustainable practices...",
         content: "<p>Full content for Smart Urban Development...</p>",
@@ -42,6 +54,7 @@ const dummyBlogs = [
         created_at: new Date(Date.now() - 86400000).toISOString()
     },
     {
+        id: 3,
         title: "Engineering the Future",
         description: "At FusionStruct, we bring precision and innovation to every project...",
         content: "<p>Full content for Engineering the Future...</p>",
@@ -57,7 +70,49 @@ async function loadHTML(path) {
     return await res.text();
 }
 
-// Main rendering
+// Store blogs globally
+let globalBlogs = [];
+
+// Function to handle read more click
+function handleReadMore(blog) {
+    console.log("Storing blog in sessionStorage:", blog.title);
+    sessionStorage.setItem("selectedBlog", JSON.stringify(blog));
+    window.location.href = "blog-details.html";
+}
+
+// Direct event listener approach
+function setupReadMoreButtons() {
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    console.log(`Found ${readMoreButtons.length} read more buttons`);
+    
+    readMoreButtons.forEach((button, index) => {
+        // Remove any existing event listeners to avoid duplicates
+        button.replaceWith(button.cloneNode(true));
+    });
+    
+    // Re-select after cloning
+    const freshButtons = document.querySelectorAll('.read-more-btn');
+    
+    freshButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log(`Read More button ${index} clicked`);
+            
+            if (globalBlogs[index]) {
+                handleReadMore(globalBlogs[index]);
+            } else {
+                console.error(`No blog found at index ${index}`);
+                alert("Error: Could not load blog details.");
+            }
+        });
+        
+        // Add visual feedback
+        button.style.cursor = 'pointer';
+    });
+}
+
+// Main rendering - UPDATED WITH BETTER DEBUGGING
 document.addEventListener("DOMContentLoaded", async () => {
     const blogContainer = document.getElementById("blog-container");
     if (!blogContainer) {
@@ -81,8 +136,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    // Store blogs globally
+    globalBlogs = blogs;
+
     const MAX_LENGTH = 150;
 
+    // Render blogs with better debugging
     blogContainer.innerHTML = blogs
         .map((blog, index) => {
             const shortDescription = blog.description.length > MAX_LENGTH
@@ -90,6 +149,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 : blog.description;
 
             const imageUrl = getBlogImage(blog);
+            console.log(`Blog ${index}:`, {
+                title: blog.title,
+                images: blog.image,
+                finalImageUrl: imageUrl
+            });
 
             const createdDate = blog.created_at
                 ? new Date(blog.created_at).toLocaleDateString("en-US", {
@@ -99,32 +163,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                 })
                 : "Date Unknown";
 
-            let cardHtml = cardTemplate
+            // SIMPLE REPLACEMENT - EXACTLY LIKE PROPERTY.JS
+            let html = cardTemplate
                 .replace(/Dummy Blog Title/g, blog.title)
                 .replace(/This is a sample description[\s\S]*?API\./g, shortDescription)
                 .replace(/DUMMY_DATE/g, createdDate)
-                .replace(/DUMMY_ID/g, blog.id || index);
+                .replace(/DUMMY_ID/g, blog.id || index)
+                .replace('src="assets/images/placeholder.jpg"', `src="${imageUrl}"`);
 
-            cardHtml = cardHtml.replace(
-                'src="assets/images/placeholder.jpg"', 
-                `src="${imageUrl}"`
-            );
-            return cardHtml;
+            return html;
         })
         .join("");
 
-    // ----- Add Read More functionality -----
-    const readMoreBtns = document.querySelectorAll(".read-more-btn");
-    readMoreBtns.forEach((btn, idx) => {
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const selectedBlog = blogs[idx];
-            if (!selectedBlog) return alert("Blog not found");
-            sessionStorage.setItem("selectedBlog", JSON.stringify(selectedBlog));
-            window.location.href = "blog-details.html";
-        });
-    });
-
-    // Make blogs accessible globally for safety
-    window.blogs = blogs;
+    // Setup event listeners after a short delay to ensure DOM is ready
+    setTimeout(() => {
+        setupReadMoreButtons();
+    }, 100);
 });

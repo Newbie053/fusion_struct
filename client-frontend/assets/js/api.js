@@ -1,7 +1,8 @@
 // assets/js/api.js
 
-//const BASE_URL = "https://backend.fusionstructengineering.com/api";
- const BASE_URL = "http://localhost:5000/api";
+// const BASE_URL = "https://backend.fusionstructengineering.com/api";
+const BASE_URL = "https://backend.fusionstructengineering.com/api";
+// const BASE_URL = "http://localhost:5000/api";
 
 //const BASE_URL = "http://localhost:5000/api";
 export async function fetchBlogs() {

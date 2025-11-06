@@ -33,6 +33,20 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
+.read-more-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+    background-color: #2563eb;
+}
 
 /* Individual Blog Card */
 .blog-card {

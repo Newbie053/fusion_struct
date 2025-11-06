@@ -1,62 +1,71 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties | FusionStruct</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="components/navbar.css">
-    <link rel="stylesheet" href="components/footer.css">
-    <link rel="stylesheet" href="assets/css/property.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Properties | FusionStruct</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="components/navbar.css">
+  <link rel="stylesheet" href="components/footer.css">
+  <link rel="stylesheet" href="assets/css/property.css">
 </head>
 <body>
+  <!-- Navbar -->
+  <div id="navbar"></div>
 
-    <div id="navbar"></div>
-    
-    <main>
-        <!-- Property Header -->
-        <section class="property-header bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl font-bold mb-4">Our Properties</h1>
-                <p class="text-xl opacity-90">Discover premium real estate opportunities with FusionStruct Engineering</p>
-            </div>
-        </section>
+  <main>
+    <!-- Property Header -->
+    <section class="property-header bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+      <div class="container mx-auto px-6 text-center">
+        <h1 class="text-4xl font-bold mb-4">Our Properties</h1>
+        <p class="text-xl opacity-90">
+          Discover premium real estate opportunities with FusionStruct Engineering
+        </p>
+      </div>
+    </section>
 
-        <!-- Properties Container -->
-        <section class="px-6 py-12 max-w-7xl mx-auto">
-            <div id="property-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Properties will load here -->
-            </div>
-        </section>
-    </main>
+    <!-- Properties Container -->
+    <section class="px-6 py-12 max-w-7xl mx-auto">
+      <div id="property-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Properties will load here -->
+      </div>
+    </section>
+  </main>
 
-    <div id="footer"></div>
+  <!-- Footer -->
+  <div id="footer"></div>
 
-    <script type="module">
-        import './assets/js/main.js';
-        import './assets/js/property.js';
-        // Load navbar and footer
-        async function loadHTML(path, elementId) {
-            const html = await fetch(path).then(res => res.text());
-            document.getElementById(elementId).innerHTML = html;
-        }
+  <!-- Scripts -->
+  <script type="module">
+    import './assets/js/main.js';
+    import './assets/js/property.js';
 
-        async function initNavbar() {
-            await loadHTML("components/navbar.html", "navbar");
-            const menuToggle = document.getElementById("menu-toggle");
-            const navLinks = document.getElementById("nav-links");
-            menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
-        }
+    // Reusable HTML loader
+    async function loadHTML(path, elementId) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`Failed to load ${path}`);
+        const html = await res.text();
+        const el = document.getElementById(elementId);
+        if (el) el.innerHTML = html;
+        else console.error(`Element #${elementId} not found for ${path}`);
+      } catch (err) {
+        console.error(`Error loading ${path}:`, err);
+      }
+    }
 
-        async function initFooter() {
-            await loadHTML("components/footer.html", "footer");
-        }
+    // Initialize navbar & footer AFTER DOM is ready
+    document.addEventListener("DOMContentLoaded", async () => {
+      await loadHTML("components/navbar.html", "navbar");
+      await loadHTML("components/footer.html", "footer");
 
-        // Initialize navbar and footer
-        initNavbar();
-        initFooter();
-    </script>
-
+      // Navbar menu toggle (optional)
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
+    });
+  </script>
 </body>
 </html>
