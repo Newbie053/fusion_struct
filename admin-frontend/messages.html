@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | Admin Panel</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="components/sidebar.css">
+  <link rel="stylesheet" href="components/footer.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f3f4f6;
+    }
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+    .message-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 15px;
+      transition: transform 0.2s;
+    }
+    .message-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .message-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.1rem;
+      color: #004080;
+    }
+    .message-card p {
+      margin: 5px 0;
+    }
+    .message-card span {
+      font-size: 0.85rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar"></div>
+  <main>
+    <h1 class="text-2xl font-bold mb-4">Contact Messages</h1>
+    <div id="messages-container">
+      <p>Loading messages...</p>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module">
+    async function loadHTML(path, elementId) {
+      const html = await fetch(path).then(res => res.text());
+      document.getElementById(elementId).innerHTML = html;
+    }
+
+    // Initialize sidebar and footer
+    loadHTML("components/sidebar.html", "sidebar");
+    loadHTML("components/footer.html", "footer");
+
+    // Fetch messages
+    async function fetchMessages() {
+      const container = document.getElementById('messages-container');
+      container.innerHTML = "<p>Loading messages...</p>";
+
+      try {
+        const res = await fetch("https://backend.fusionstructengineering.com/api/contact");
+        const data = await res.json();
+
+        if (!data.success) {
+          container.innerHTML = `<p style="color:red;">Failed to load messages</p>`;
+          return;
+        }
+
+        if (data.data.length === 0) {
+          container.innerHTML = `<p>No messages found.</p>`;
+          return;
+        }
+
+        // Render messages
+        container.innerHTML = "";
+        data.data.forEach(msg => {
+          const div = document.createElement('div');
+          div.classList.add('message-card');
+          div.innerHTML = `
+            <h3>${msg.name} (${msg.email})</h3>
+            <p><strong>Phone:</strong> ${msg.phone}</p>
+            <p><strong>Subject:</strong> ${msg.subject}</p>
+            <p>${msg.message}</p>
+            <span>${new Date(msg.created_at).toLocaleString()}</span>
+          `;
+          container.appendChild(div);
+        });
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:red;">Error fetching messages</p>`;
+      }
+    }
+
+    fetchMessages();
+  </script>
+
+</body>
+</html>

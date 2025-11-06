@@ -27,10 +27,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
+const contactRoutes = require('./routes/contactRoutes');
 
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/properties", propertyRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get("/", (req, res) => {
   res.send("FusionStruct Backend API is running.");

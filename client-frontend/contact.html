@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | FusionStruct</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="components/navbar.css" />
-<link rel="stylesheet" href="components/footer.css" />
-<link rel="stylesheet" href="assets/css/style.css" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="components/navbar.css" />
+  <link rel="stylesheet" href="components/footer.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
   <style>
     /* Contact page specific styling */
     .contact-section {
@@ -59,45 +61,87 @@
 <body>
 
   <div id="navbar"></div>
-  <main>
 
-  <section class="contact-section">
-    <h1>Contact Us</h1>
-    <form id="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="text" name="subject" placeholder="Subject" required>
-      <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p id="form-status" style="text-align:center; margin-top:10px; color:green;"></p>
-  </section>
+  <main>
+    <section class="contact-section">
+      <h1>Contact Us</h1>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="phone" placeholder="Your Phone" required />
+        <input type="text" name="subject" placeholder="Subject" required />
+        <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="form-status" style="text-align:center; margin-top:10px;"></p>
+    </section>
   </main>
 
   <div id="footer"></div>
 
   <script type="module">
-  async function loadHTML(path, elementId) {
-  const html = await fetch(path).then(res => res.text());
-  document.getElementById(elementId).innerHTML = html;
-}
+    async function loadHTML(path, elementId) {
+      const html = await fetch(path).then(res => res.text());
+      document.getElementById(elementId).innerHTML = html;
+    }
 
-async function initNavbar() {
-  await loadHTML("components/navbar.html", "navbar");
+    async function initNavbar() {
+      await loadHTML("components/navbar.html", "navbar");
 
-  // Dropdown toggle
-  const menuToggle = document.getElementById("menu-toggle");
-  const navLinks = document.getElementById("nav-links");
-  menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
-}
+      // Dropdown toggle
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
+    }
 
-async function initFooter() {
-  await loadHTML("components/footer.html", "footer");
-}
+    async function initFooter() {
+      await loadHTML("components/footer.html", "footer");
+    }
 
-// Initialize
-initNavbar();
-initFooter();
+    // Initialize
+    initNavbar();
+    initFooter();
+
+    // Form submission
+    const form = document.getElementById("contact-form");
+    const statusText = document.getElementById("form-status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusText.style.color = "black";
+      statusText.textContent = "Sending...";
+
+      const formData = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        subject: form.subject.value,
+        message: form.message.value,
+      };
+
+      try {
+        const res = await fetch("https://backend.fusionstructengineering.com/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          statusText.style.color = "green";
+          statusText.textContent = "Message sent successfully!";
+          form.reset();
+        } else {
+          statusText.style.color = "red";
+          statusText.textContent = data.message || "Failed to send message.";
+        }
+      } catch (error) {
+        console.error(error);
+        statusText.style.color = "red";
+        statusText.textContent = "Something went wrong. Please try again.";
+      }
+    });
   </script>
 
 </body>
