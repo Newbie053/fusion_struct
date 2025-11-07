@@ -58,6 +58,57 @@
 #navbar .menu-toggle:hover {
   transform: rotate(90deg);
 }
+#text-gradient {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(135deg, var(--gradient-start) 0, var(--gradient-end) 100%);
+    background-size: 100%;
+    -webkit-box-decoration-break: clone;
+}
+
+/* ============================= */
+/* Brand Logo Text Styling */
+/* ============================= */
+#navbar .logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  background: linear-gradient(135deg, #FFC857, #00D084 60%, #00A3FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  transition: all 0.4s ease;
+}
+
+/* Glow + depth on hover */
+#navbar .logo-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #FFC857, #00D084, #00A3FF);
+  border-radius: 4px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Subtle interaction effect */
+#navbar .logo-text:hover {
+  letter-spacing: 2px;
+  filter: drop-shadow(0 0 4px rgba(255, 200, 87, 0.4));
+}
+
+#navbar .logo-text:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
 
 @media screen and (max-width: 768px) {
   #navbar .menu-toggle {

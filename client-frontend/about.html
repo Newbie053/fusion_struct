@@ -3,64 +3,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | FusionStruct</title>
+  <title>About Us | FusionStruct Design & Construction Ltd.</title>
+  <style>
+    /* === Heading Shading Style === */
+.heading-ash {
+  background: linear-gradient(120deg, #0d0d0e, #5181ca49); /* cool ash tones */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 3px rgba(7, 10, 12, 0.4);
+}
 
-  <!-- Tailwind CDN -->
+  </style>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Styles -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="components/navbar.css" />
-<link rel="stylesheet" href="components/footer.css" />
-<link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="components/navbar.css" />
+  <link rel="stylesheet" href="components/footer.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans">
-
+<body class="bg-gray-400 text-gray-800 font-sans">
   <!-- Navbar -->
   <div id="navbar"></div>
-<main>
+
+  <!-- Hero Section
+  <section class="relative bg-[url('assets/images/about-hero.jpg')] bg-cover bg-center h-[60vh] flex items-center justify-center text-white">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Redefining Modern Living</h1>
+      <p class="mt-4 text-lg max-w-2xl mx-auto">Where precision meets imagination, and every space tells a story of clarity, strength, and elegance.</p>
+    </div>
+  </section> -->
+
   <!-- About Section -->
-  <section class="about-section max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6 mt-10">
-    <h1 class="text-3xl font-bold text-center text-green-700 mb-4">About FusionStruct Engineering</h1>
-    <img src="/assets/images/placeholder.jpg" alt="Company" class="rounded-lg mb-6 w-full">
-    <p>
-      FusionStruct Engineering provides high-quality real estate and consultancy services.
-      We prioritize transparency, reliability, and excellence in every project.
-    </p>
-    <p class="mt-4">
-      Our mission is to combine technology with personalized service for a seamless user experience.
-    </p>
+  <section class="max-w-5xl mx-auto py-16 px-6">
+    <h2 class="text-3xl font-bold heading-ash mb-6 text-center">About FusionStruct</h2>
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="text-lg leading-relaxed text-justify mb-6">
+          FusionStruct Design & Construction Ltd was founded with the ambition to elevate the standard of modern building in Bangladesh. We aspire to create spaces that embody elegance, resilience, and clarity — turning every project into a testament of refined living.
+        </p>
+        <p class="text-lg leading-relaxed text-justify mb-6">
+          We believe architecture is more than walls and roofs; it’s the orchestration of experiences that inspire confidence, comfort, and pride. Every structure is shaped with meticulous attention, using advanced methods and imaginative design to ensure both durability and distinction.
+        </p>
+        <p class="text-lg leading-relaxed text-justify">
+          At FusionStruct, we uphold trust, integrity, and excellence as our guiding values. Every project is an opportunity to set a new benchmark of quality — delivering environments that enrich life and reflect both modern aspiration and lasting value.
+        </p>
+      </div>
+      <div>
+        <img src="assets/images/about1.png" alt="FusionStruct Project"
+             class="rounded-2xl shadow-lg w-full object-cover h-[350px]" />
+      </div>
+    </div>
   </section>
-  </main>
+
+  <!-- Vision & Mission -->
+  <section class="bg-gray-600 py-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 px-6 items-center">
+
+      <div>
+        <h3 class="text-2xl font-semibold heading-ash mb-4">Our Vision</h3>
+        <ul class="space-y-3 text-white mb-6">
+          <li>• To redefine modern living in Bangladesh with spaces that are elegant, practical, and timeless.</li>
+          <li>• To enhance daily life by maximizing light, air, and comfort.</li>
+          <li>• To ensure flawless execution through advanced technology and precise methods.</li>
+          <li>• To build trust through transparency, integrity, and attention to detail.</li>
+          <li>• To embrace sustainability as a standard, creating long-term value.</li>
+        </ul>
+
+        <h3 class="text-2xl font-semibold heading-ash mb-4">Our Mission</h3>
+        <p class="text-white leading-relaxed">
+          To orchestrate transformative spaces that harmonize structural precision with architectural elegance — ensuring every project embodies both enduring strength and refined luxury.
+        </p>
+        <p class="mt-4 text-white leading-relaxed">
+          We cultivate lasting value and trust by fusing innovation, transparency, and client-centric design — creating environments that inspire pride, comfort, and confidence for generations.
+        </p>
+      </div>
+            <div>
+        <img src="assets/images/vission1.png" alt="FusionStruct Vision and Mission"
+             class="rounded-2xl shadow-md w-full object-cover h-[400px]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+<section class="bg-gray-400 py-16">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold heading-ash mb-10">Our Core Services</h3>
+
+    <div class="grid md:grid-cols-2 gap-8 text-left">
+      
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Architectural Visualization & 3D Walkthroughs</h4>
+        <p class="text-gray-700 leading-relaxed">
+          We bring your vision to life before a single brick is laid. Through immersive 3D renders and walkthroughs, 
+          you can explore your future home or building in detail, ensuring every corner reflects your lifestyle and aspirations.
+        </p>
+      </div>
+
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Structural Design & Detailing</h4>
+        <p class="text-gray-700 leading-relaxed">
+          Our engineering expertise ensures that every structure is safe, precise, and enduring. 
+          Whether working with concrete, steel, or composite systems, we design with accuracy and foresight, 
+          creating frameworks that balance strength with elegance and efficiency.
+        </p>
+      </div>
+
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Approval & Documentation Support</h4>
+        <p class="text-gray-700 leading-relaxed">
+          Navigating approvals can be complex. We simplify the process by preparing clear, complete documentation 
+          that aligns with regulatory standards, giving you peace of mind and a smooth path forward.
+        </p>
+      </div>
+
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Property Showcasing & Presentation</h4>
+        <p class="text-gray-700 leading-relaxed">
+          We help you present your property with distinction. Through curated visuals, professional layouts, 
+          and premium presentation, your property is positioned to attract the right audience and reflect its true value.
+        </p>
+      </div>
+
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Cost Planning & BOQ Preparation</h4>
+        <p class="text-gray-700 leading-relaxed">
+          We believe luxury should be intelligent as well as beautiful. Our transparent cost planning and 
+          itemized Bills of Quantities help you make informed decisions, ensuring resources are used wisely 
+          without compromising quality.
+        </p>
+      </div>
+
+      <div class="bg-gray-200 rounded-xl shadow-md p-8 hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold heading-ash mb-3">Construction Management & Supervision</h4>
+        <p class="text-gray-700 leading-relaxed">
+          From groundbreaking to handover, we oversee every stage of construction with discipline and care. 
+          Our supervision guarantees that designs are executed faithfully, materials are used responsibly, 
+          and quality is never compromised.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- Why Choose Us -->
+  <section class="bg-gray-600 py-16">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h3 class="text-3xl font-bold heading-ash mb-8">Why Choose FusionStruct</h3>
+      <img src="assets/images/choose.png" alt="Why Choose FusionStruct" class="mx-auto mb-8 rounded-2xl shadow-md h-[350px] object-cover" />
+      <p class="text-lg leading-relaxed text-white mb-6">
+        Choosing a partner to build your dream is about more than design and construction — it’s about trust. At FusionStruct, we honor that trust with care, discipline, and vision.
+      </p>
+      <p class="text-lg leading-relaxed text-white mb-6">
+        We see ourselves as guardians of your aspirations. Each project reflects precision, imagination, and a deep respect for permanence and beauty. Whether working with concrete, steel, or composite systems, our mastery transforms materials into meaningful experiences.
+      </p>
+      <p class="text-lg leading-relaxed text-white">
+        When you choose FusionStruct, you choose clarity, transparency, and excellence — a team that listens, adapts, and delivers. Most of all, you choose a partner who treats your dream not as a project, but as a legacy.
+      </p>
+    </div>
+  </section>
 
   <!-- Footer -->
   <div id="footer"></div>
 
   <!-- JS Components -->
   <script type="module">
-async function loadHTML(path, elementId) {
-  const html = await fetch(path).then(res => res.text());
-  document.getElementById(elementId).innerHTML = html;
-}
+    async function loadHTML(path, elementId) {
+      const html = await fetch(path).then(res => res.text());
+      document.getElementById(elementId).innerHTML = html;
+    }
 
-async function initNavbar() {
-  await loadHTML("components/navbar.html", "navbar");
+    async function initNavbar() {
+      await loadHTML("components/navbar.html", "navbar");
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
+    }
 
-  // Dropdown toggle
-  const menuToggle = document.getElementById("menu-toggle");
-  const navLinks = document.getElementById("nav-links");
-  menuToggle?.addEventListener("click", () => navLinks.classList.toggle("active"));
-}
+    async function initFooter() {
+      await loadHTML("components/footer.html", "footer");
+    }
 
-async function initFooter() {
-  await loadHTML("components/footer.html", "footer");
-}
-
-// Initialize
-initNavbar();
-initFooter();
+    initNavbar();
+    initFooter();
   </script>
-
 </body>
 </html>
